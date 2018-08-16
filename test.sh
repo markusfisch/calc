@@ -1,25 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 readonly BIN=./calc
 
-make clean && make
-
-[ -x $BIN ] || exit 1
+[ -x $BIN ] || make || exit 1
 
 # Test calc
 #
 # @param 1 - string to calculate
 # @param 2 - desired result
-test_calc()
-{
+test_calc() {
 	local R=`$BIN "$1" 2>&1`
 
 	[ "$R" != "$2" ] && {
-		echo "FAILED! $1 != $R (should be $2)"
+		echo "FAIL: $1 != $R (should be $2)"
 		exit 1
 	}
 
-	echo "$1 == $R"
+	echo "PASS: $1 == $R"
 }
 
 test_calc 0 '0.000000'
