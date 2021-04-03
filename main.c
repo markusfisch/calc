@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
 				return -1;
 			case 'h':
 			case '?':
-				fprintf(stdout, "usage: %s [-Fdflipbx] EXPRESSION...\n"\
+				fprintf(stdout, "usage: %s [-dflipbx] EXPRESSION...\n"\
 					"    -d         result is a double (default)\n"\
 					"    -f         cast result to float\n"\
 					"    -l         cast result to long\n"\
