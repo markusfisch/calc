@@ -42,7 +42,7 @@ static void print_binary(const unsigned char *mem, int size) {
  */
 static void print_hex(const unsigned char *mem, int size) {
 	for (; size--; ++mem) {
-		printf("%x ", *mem);
+		printf("%02x ", *mem);
 	}
 	printf("\n");
 }
