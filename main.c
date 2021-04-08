@@ -61,49 +61,51 @@ int main(int argc, char **argv) {
 
 	while (--argc) {
 		if (**(++argv) == '-') {
-			switch (*((*argv) + 1)) {
-			default:
-				fprintf(stderr, "error: unknown option '%c'\n",
-					*((*argv) + 1));
-				return -1;
-			case 'h':
-			case '?':
-				fprintf(stdout, "usage: %s [-dflipbx] EXPRESSION...\n"\
-					"    -d         result is a double (default)\n"\
-					"    -f         cast result to float\n"\
-					"    -l         cast result to long\n"\
-					"    -i         cast result to int\n"\
-					"    -p FORMAT  print result with printf (default)\n"\
-					"    -b         print result in binary\n"\
-					"    -x         print result as hex dump\n\n",
-					binary);
-				break;
-			case 'i':
-				cast = CAST_INTEGER;
-				break;
-			case 'l':
-				cast = CAST_LONG;
-				break;
-			case 'f':
-				cast = CAST_FLOAT;
-				break;
-			case 'd':
-				cast = CAST_DOUBLE;
-				break;
-			case 'p':
-				if (!--argc) {
-					fprintf(stderr, "error: missing format argument\n");
+			for (const char *flag = (*argv) + 1; *flag; ++flag) {
+				switch (*flag) {
+				default:
+					fprintf(stderr, "error: unknown option '%c'\n",
+						*((*argv) + 1));
 					return -1;
+				case 'h':
+				case '?':
+					fprintf(stdout, "usage: %s [-dflipbx] EXPRESSION...\n"\
+						"    -d         result is a double (default)\n"\
+						"    -f         cast result to float\n"\
+						"    -l         cast result to long\n"\
+						"    -i         cast result to int\n"\
+						"    -p FORMAT  print result with printf (default)\n"\
+						"    -b         print result in binary\n"\
+						"    -x         print result as hex dump\n\n",
+						binary);
+					return 0;
+				case 'i':
+					cast = CAST_INTEGER;
+					break;
+				case 'l':
+					cast = CAST_LONG;
+					break;
+				case 'f':
+					cast = CAST_FLOAT;
+					break;
+				case 'd':
+					cast = CAST_DOUBLE;
+					break;
+				case 'p':
+					if (!--argc) {
+						fprintf(stderr, "error: missing format argument\n");
+						return -1;
+					}
+					format = *++argv;
+					output = OUTPUT_PRINTF;
+					break;
+				case 'b':
+					output = OUTPUT_BINARY;
+					break;
+				case 'x':
+					output = OUTPUT_HEX;
+					break;
 				}
-				format = *++argv;
-				output = OUTPUT_PRINTF;
-				break;
-			case 'b':
-				output = OUTPUT_BINARY;
-				break;
-			case 'x':
-				output = OUTPUT_HEX;
-				break;
 			}
 		} else {
 			void *v;
