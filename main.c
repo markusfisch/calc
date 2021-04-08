@@ -54,8 +54,8 @@ static void print_hex(const unsigned char *mem, int size) {
  * @param argv - arguments
  */
 int main(int argc, char **argv) {
-	char *binary = *argv;
-	char *format = "%f\n";
+	const char *binary = *argv;
+	const char *format = "%f\n";
 	int cast = CAST_DOUBLE;
 	int output = OUTPUT_PRINTF;
 
