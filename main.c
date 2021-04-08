@@ -113,9 +113,9 @@ int main(int argc, char **argv) {
 			long l;
 			int i;
 			size_t s;
-			double r = 0;
+			double result = 0;
 
-			if (!calc(*argv, &r, 0)) {
+			if (!calc(*argv, &result, 0)) {
 				fprintf(stderr, "syntax error\n");
 				return -1;
 			}
@@ -123,21 +123,21 @@ int main(int argc, char **argv) {
 			switch (cast) {
 			default:
 			case CAST_DOUBLE:
-				v = &r;
+				v = &result;
 				s = sizeof(double);
 				break;
 			case CAST_FLOAT:
-				f = (float) r;
+				f = (float) result;
 				v = &f;
 				s = sizeof(float);
 				break;
 			case CAST_LONG:
-				l = (long) r;
+				l = (long) result;
 				v = &l;
 				s = sizeof(long);
 				break;
 			case CAST_INTEGER:
-				i = (int) r;
+				i = (int) result;
 				v = &i;
 				s = sizeof(int);
 				break;
@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
 				switch (cast) {
 				default:
 				case CAST_DOUBLE:
-					printf(format, r);
+					printf(format, result);
 					break;
 				case CAST_FLOAT:
 					printf(format, f);

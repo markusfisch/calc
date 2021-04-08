@@ -4,19 +4,17 @@ readonly BIN=./calc
 
 [ -x $BIN ] || make || exit 1
 
-# Test calc
+# Test run calc
 #
 # @param 1 - string to calculate
-# @param 2 - desired result
+# @param 2 - expected result
 test_calc() {
-	local R=`$BIN "$1" 2>&1`
-
-	[ "$R" != "$2" ] && {
-		echo "FAIL: $1 != $R (should be $2)"
+	local RESULT=`$BIN "$1" 2>&1`
+	[ "$RESULT" != "$2" ] && {
+		echo "FAIL: $1 != $RESULT (should be $2)"
 		exit 1
 	}
-
-	echo "PASS: $1 == $R"
+	echo "PASS: $1 == $RESULT"
 }
 
 test_calc 0 '0.000000'
